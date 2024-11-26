@@ -15,9 +15,9 @@ st.title("Cooling Tower Efficiency Calculator")
 
 # Input fields for temperatures
 st.write("Enter the temperatures below (in °C):")
-T_in = st.number_input("Inlet Water Temperature:", min_value=-100.0, max_value=100.0, step=0.1)
-T_out = st.number_input("Outlet Water Temperature:", min_value=-100.0, max_value=100.0, step=0.1)
-T_wb = st.number_input("Wet Bulb Temperature:", min_value=-100.0, max_value=100.0, step=0.1)
+T_in = st.number_input("Inlet Water Temperature:", )
+T_out = st.number_input("Outlet Water Temperature:", )
+T_wb = st.number_input("Wet Bulb Temperature:",)
 
 # Button to perform calculation
 if st.button("Calculate Efficiency"):
