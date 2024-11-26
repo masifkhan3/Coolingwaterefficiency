@@ -1,5 +1,4 @@
-import ipywidgets as widgets
-from IPython.display import display, clear_output
+import streamlit as st
 
 def calculate_cooling_tower_efficiency(T_in, T_out, T_wb):
     """Calculate the efficiency of a cooling tower."""
@@ -11,30 +10,15 @@ def calculate_cooling_tower_efficiency(T_in, T_out, T_wb):
     efficiency = (T_in - T_out) / (T_in - T_wb) * 100
     return f"The efficiency of the cooling tower is: {efficiency:.2f}%"
 
-def on_button_click(b):
-    clear_output()  # Clear previous output
-    display(widgets.VBox([inlet_temp, outlet_temp, wet_bulb_temp, calculate_button, output]))
-    
-    try:
-        T_in = float(inlet_temp.value)
-        T_out = float(outlet_temp.value)
-        T_wb = float(wet_bulb_temp.value)
-        
-        result = calculate_cooling_tower_efficiency(T_in, T_out, T_wb)
-        output.value = result
-    
-    except ValueError:
-        output.value = "Error: Please enter valid numeric values."
+# Title of the application
+st.title("Cooling Tower Efficiency Calculator")
 
-# Create input widgets
-inlet_temp = widgets.FloatText(description='Inlet Temp (°C):')
-outlet_temp = widgets.FloatText(description='Outlet Temp (°C):')
-wet_bulb_temp = widgets.FloatText(description='Wet Bulb Temp (°C):')
-calculate_button = widgets.Button(description='Calculate Efficiency')
-output = widgets.Textarea(description='Result:', disabled=True)
+# Input fields for temperatures
+T_in = st.number_input("Inlet Water Temperature (°C):", min_value=-100.0, max_value=100.0, value=30.0)
+T_out = st.number_input("Outlet Water Temperature (°C):", min_value=-100.0, max_value=100.0, value=25.0)
+T_wb = st.number_input("Wet Bulb Temperature (°C):", min_value=-100.0, max_value=100.0, value=20.0)
 
-# Attach the button click event
-calculate_button.on_click(on_button_click)
-
-# Display the widgets
-display(widgets.VBox([inlet_temp, outlet_temp, wet_bulb_temp, calculate_button, output]))
+# Button to perform calculation
+if st.button("Calculate Efficiency"):
+    result = calculate_cooling_tower_efficiency(T_in, T_out, T_wb)
+    st.write(result)
